@@ -1183,8 +1183,8 @@ public partial class MainMenu : Control
 		// No check for "name" since default does it
 		orderedSequence = sortKey.ToLower() switch
 		{
-			"author" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<Label>("Title").Text).Split(" - ")[0]),
-			"creator" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text).Split(" - ")[^1]),
+			"artist" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<Label>("Title").Text).Split(" - ")[0]),
+			"author" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text).Split(" - ")[^1]),
 			"difficulty" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text).Split(" - ")[0]),
 			_ => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<Label>("Title").Text).Split(" - ")[^1]) // default by name
 		};

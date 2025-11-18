@@ -596,11 +596,11 @@ popup/item_0/id = 0
 popup/item_0/disabled = true
 popup/item_1/text = "Name"
 popup/item_1/id = 1
-popup/item_2/text = "Author"
+popup/item_2/text = "Artist"
 popup/item_2/id = 2
-popup/item_3/text = "Difficulty"
+popup/item_3/text = "Author"
 popup/item_3/id = 3
-popup/item_4/text = "Creator"
+popup/item_4/text = "Difficulty"
 popup/item_4/id = 4
 
 [node name="Multiplayer" type="Panel" parent="Menus/Play"]
