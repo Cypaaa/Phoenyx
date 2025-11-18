@@ -38,6 +38,7 @@ public partial class MainMenu : Control
 	private static Button SettingsButton;
 	private static LineEdit SearchEdit;
 	private static LineEdit SearchAuthorEdit;
+	private static OptionButton OrderByOptionButton;
 	private static FileDialog ImportDialog;
 	private static ScrollContainer MapList;
 	private static VBoxContainer MapListContainer;
@@ -419,6 +420,7 @@ public partial class MainMenu : Control
 		SettingsButton = SubTopBar.GetNode<Button>("Settings");
 		SearchEdit = SubTopBar.GetNode<LineEdit>("Search");
 		SearchAuthorEdit = SubTopBar.GetNode<LineEdit>("SearchAuthor");
+		OrderByOptionButton = SubTopBar.GetNode<OptionButton>("OrderBy");
 		ImportDialog = GetNode<FileDialog>("ImportDialog"); 
 		MapList = PlayMenu.GetNode<ScrollContainer>("MapList");
 		MapListContainer = MapList.GetNode<VBoxContainer>("Container");
@@ -789,23 +791,26 @@ public partial class MainMenu : Control
 		{
 			tile.Color = tile.Color.Lerp(Color.Color8(255, 255, 255, 0), (float)delta * 8);
 		}
-
-		for (int i = PassedNotes; i < CurrentMap.Notes.Length; i++)
+		
+		if (CurrentMap.Notes != null)
 		{
-			if (CurrentMap.Notes[i].Millisecond > SoundManager.Song.GetPlaybackPosition() * 1000)
+			for (int i = PassedNotes; i < CurrentMap.Notes.Length; i++)
 			{
-				break;
+				if (CurrentMap.Notes[i].Millisecond > SoundManager.Song.GetPlaybackPosition() * 1000)
+				{
+					break;
+				}
+
+				Vector2I pos = new(Math.Clamp((int)Math.Floor(CurrentMap.Notes[i].X + 1.5), 0, 2), Math.Clamp((int)Math.Floor(CurrentMap.Notes[i].Y + 1.5), 0, 2));
+				int tile = 0;
+				
+				tile += pos.X;
+				tile += 3 * pos.Y;
+
+				(BackgroundTiles[tile] as ColorRect).Color = Color.Color8(255, 255, 255, 12);
+
+				PassedNotes = i + 1;
 			}
-
-			Vector2I pos = new(Math.Clamp((int)Math.Floor(CurrentMap.Notes[i].X + 1.5), 0, 2), Math.Clamp((int)Math.Floor(CurrentMap.Notes[i].Y + 1.5), 0, 2));
-			int tile = 0;
-			
-			tile += pos.X;
-			tile += 3 * pos.Y;
-
-			(BackgroundTiles[tile] as ColorRect).Color = Color.Color8(255, 255, 255, 12);
-
-			PassedNotes = i + 1;
 		}
 
 		Main.Position = Main.Position.Lerp((Size / 2 - MousePosition) * (4 / Size.Y), Math.Min(1, (float)delta * 16));
@@ -1023,7 +1028,9 @@ public partial class MainMenu : Control
 
 		foreach (Panel map in MapListContainer.GetChildren())
 		{
-			map.Visible = !Phoenyx.Constants.TempMapMode && map.GetNode("Holder").GetNode<Label>("Title").Text.ToLower().Contains(SearchTitle) && map.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text.ToLower().Split(" - ")[^1].Contains(SearchAuthor);
+			map.Visible = !Phoenyx.Constants.TempMapMode
+				&& map.GetNode("Holder").GetNode<Label>("Title").Text.ToLower().Contains(SearchTitle)
+				&& map.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text.ToLower().Split(" - ")[^1].Contains(SearchAuthor);
 
 			if (map.Visible)
 			{
@@ -1159,6 +1166,38 @@ public partial class MainMenu : Control
 		{
 			MapsOrder[mapButtons[i].Name] = i;
 		}
+	}
+
+	public static void _on_orderby_item_selected(int index) {
+		string sortKey = OrderByOptionButton.GetItemText((int)index);
+		Logger.Log($"Sorting by: {sortKey}");
+
+		OrderMapList(sortKey);
+	}
+
+	public static void OrderMapList(string sortKey)
+	{
+		Godot.Collections.Array<Node> mapButtons = MapListContainer.GetChildren();
+		IOrderedEnumerable<Node> orderedSequence = null;
+
+		// No check for "name" since default does it
+		orderedSequence = sortKey.ToLower() switch
+		{
+			"author" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<Label>("Title").Text).Split(" - ")[0]),
+			"creator" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text).Split(" - ")[^1]),
+			"difficulty" => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<RichTextLabel>("Extra").Text).Split(" - ")[0]),
+			_ => mapButtons.OrderBy(x => ((string)x.GetNode("Holder").GetNode<Label>("Title").Text).Split(" - ")[^1]) // default by name
+		};
+
+		List<Node> sortedList = orderedSequence.ToList();
+		for (int i = 0; i < sortedList.Count; i++)
+		{
+			Node childNode = sortedList[i];
+			MapListContainer.MoveChild(childNode, i);
+			MapsOrder[childNode.Name] = i; 
+		}
+
+		Logger.Log("Map list reordered successfully and visually updated.");
 	}
 	
 	//public static void Chat(string message)

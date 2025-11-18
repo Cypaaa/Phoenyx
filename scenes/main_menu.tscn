@@ -481,7 +481,6 @@ alignment = 0
 
 [node name="Play" type="Panel" parent="Menus"]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -502,44 +501,14 @@ offset_bottom = 128.0
 theme = ExtResource("2_46xtp")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_18lcc")
 
-[node name="Import" type="Button" parent="Menus/Play/SubTopBar"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -448.0
-offset_top = 14.0
-offset_right = -374.0
-offset_bottom = 46.0
-grow_horizontal = 0
-focus_mode = 0
-theme = ExtResource("2_46xtp")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "Import"
-
-[node name="UserFolder" type="Button" parent="Menus/Play/SubTopBar"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -556.0
-offset_top = 14.0
-offset_right = -456.0
-offset_bottom = 46.0
-grow_horizontal = 0
-focus_mode = 0
-theme = ExtResource("2_46xtp")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-text = "User Folder"
-
 [node name="Settings" type="Button" parent="Menus/Play/SubTopBar"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -644.0
+offset_left = -792.0
 offset_top = 14.0
-offset_right = -564.0
+offset_right = -712.0
 offset_bottom = 46.0
 grow_horizontal = 0
 tooltip_text = "CTRL + O"
@@ -548,14 +517,61 @@ theme = ExtResource("2_46xtp")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Settings"
 
+[node name="UserFolder" type="Button" parent="Menus/Play/SubTopBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -704.0
+offset_top = 14.0
+offset_right = -608.0
+offset_bottom = 46.0
+grow_horizontal = 0
+focus_mode = 0
+theme = ExtResource("2_46xtp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "User Folder"
+
+[node name="Import" type="Button" parent="Menus/Play/SubTopBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -600.0
+offset_top = 14.0
+offset_right = -528.0
+offset_bottom = 46.0
+grow_horizontal = 0
+focus_mode = 0
+theme = ExtResource("2_46xtp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Import"
+
+[node name="SearchAuthor" type="LineEdit" parent="Menus/Play/SubTopBar"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -520.0
+offset_top = 14.0
+offset_right = -416.0
+offset_bottom = 46.0
+grow_horizontal = 0
+mouse_default_cursor_shape = 0
+theme = ExtResource("2_46xtp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/focus = ExtResource("6_6ryry")
+placeholder_text = "Author"
+caret_blink = true
+
 [node name="Search" type="LineEdit" parent="Menus/Play/SubTopBar"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -258.0
+offset_left = -408.0
 offset_top = 14.0
-offset_right = -8.0
+offset_right = -160.0
 offset_bottom = 46.0
 grow_horizontal = 0
 mouse_default_cursor_shape = 0
@@ -565,22 +581,27 @@ theme_override_styles/focus = ExtResource("6_6ryry")
 placeholder_text = "Search"
 caret_blink = true
 
-[node name="SearchAuthor" type="LineEdit" parent="Menus/Play/SubTopBar"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -366.0
+[node name="OrderBy" type="OptionButton" parent="Menus/Play/SubTopBar"]
+layout_mode = 0
+offset_left = 984.0
 offset_top = 14.0
-offset_right = -266.0
+offset_right = 1136.0
 offset_bottom = 46.0
-grow_horizontal = 0
-mouse_default_cursor_shape = 0
 theme = ExtResource("2_46xtp")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/focus = ExtResource("6_6ryry")
-placeholder_text = "Author"
-caret_blink = true
+alignment = 1
+selected = 0
+item_count = 5
+popup/item_0/text = "Order By (Default)"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_1/text = "Name"
+popup/item_1/id = 1
+popup/item_2/text = "Author"
+popup/item_2/id = 2
+popup/item_3/text = "Difficulty"
+popup/item_3/id = 3
+popup/item_4/text = "Creator"
+popup/item_4/id = 4
 
 [node name="Multiplayer" type="Panel" parent="Menus/Play"]
 visible = false
@@ -606,9 +627,9 @@ grow_horizontal = 0
 focus_mode = 0
 theme = ExtResource("2_46xtp")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/hover = ExtResource("4_xf0oq")
-theme_override_styles/pressed = ExtResource("4_iqqm8")
 theme_override_styles/normal = ExtResource("3_cp44m")
+theme_override_styles/pressed = ExtResource("4_iqqm8")
+theme_override_styles/hover = ExtResource("4_xf0oq")
 text = "Host"
 
 [node name="Join" type="Button" parent="Menus/Play/Multiplayer"]
@@ -624,9 +645,9 @@ grow_horizontal = 0
 focus_mode = 0
 theme = ExtResource("2_46xtp")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_styles/hover = ExtResource("4_xf0oq")
-theme_override_styles/pressed = ExtResource("4_iqqm8")
 theme_override_styles/normal = ExtResource("3_cp44m")
+theme_override_styles/pressed = ExtResource("4_iqqm8")
+theme_override_styles/hover = ExtResource("4_xf0oq")
 text = "Join"
 
 [node name="Port" type="LineEdit" parent="Menus/Play/Multiplayer"]
@@ -993,7 +1014,6 @@ caret_blink = true
 
 [node name="Extras" type="Panel" parent="Menus"]
 visible = false
-modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2310,8 +2330,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(1, 1, 0.768627, 1)
 theme_override_colors/font_color = Color(1, 1, 0.501961, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.768627, 1)
 theme_override_fonts/font = ExtResource("10_j4s1w")
 text = "Favorite"
 flat = true
@@ -2322,8 +2342,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(1, 0.768627, 0.768627, 1)
 theme_override_colors/font_color = Color(1, 0.501961, 0.501961, 1)
+theme_override_colors/font_hover_color = Color(1, 0.768627, 0.768627, 1)
 theme_override_fonts/font = ExtResource("10_j4s1w")
 text = "Delete"
 flat = true
@@ -2334,8 +2354,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0.768627, 0.768627, 1, 1)
 theme_override_colors/font_color = Color(0.501961, 0.501961, 1, 1)
+theme_override_colors/font_hover_color = Color(0.768627, 0.768627, 1, 1)
 theme_override_fonts/font = ExtResource("10_j4s1w")
 text = "Add Video"
 flat = true
@@ -2346,8 +2366,8 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
-theme_override_colors/font_hover_color = Color(0.768627, 1, 1, 1)
 theme_override_colors/font_color = Color(0.501961, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.768627, 1, 1, 1)
 theme_override_fonts/font = ExtResource("10_j4s1w")
 text = "Remove Video"
 flat = true
@@ -2427,3 +2447,4 @@ color = Color(0, 0, 0, 1)
 
 [connection signal="file_selected" from="ImportDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="file_selected" from="VideoDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="item_selected" from="Menus/Play/SubTopBar/OrderBy" to="." method="_on_orderby_item_selected"]
