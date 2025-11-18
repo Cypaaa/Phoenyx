@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://vgvjvbvu0qsc"]
+[gd_scene load_steps=10 format=3 uid="uid://vgvjvbvu0qsc"]
 
 [ext_resource type="Theme" uid="uid://dhuhu3mmaew1a" path="res://theme/theme.tres" id="1_rhnis"]
 [ext_resource type="Texture2D" uid="uid://cacq7g5ijo7sy" path="res://skin/favorite.png" id="2_c1lr1"]
 [ext_resource type="Shader" uid="uid://cqqs8uux7hqyb" path="res://scripts/shaders/ui_blur.gdshader" id="2_q8uhd"]
+[ext_resource type="Script" uid="uid://dww44s0x7rvum" path="res://scripts/map/templates/MapButtonTemplate.cs" id="2_ud221"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bchh2"]
 shader = ExtResource("2_q8uhd")
@@ -39,13 +40,23 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="LabelSettings" id="LabelSettings_fpw8h"]
 
-[node name="MapTemplate" type="Panel"]
+[node name="MapTemplate" type="Panel" node_paths=PackedStringArray("TitleLabel", "ExtraLabel", "CoverTexture", "FavoritedIcon", "HoverColor", "HolderPanel", "NormalPanel", "SelectedPanel", "MainButton")]
 clip_children = 2
 clip_contents = true
 custom_minimum_size = Vector2(0, 80)
 offset_right = 546.0
 offset_bottom = 80.0
 theme = ExtResource("1_rhnis")
+script = ExtResource("2_ud221")
+TitleLabel = NodePath("Holder/Title")
+ExtraLabel = NodePath("Holder/Extra")
+CoverTexture = NodePath("Holder/Cover")
+FavoritedIcon = NodePath("Holder/Favorited")
+HoverColor = NodePath("Holder/Hover")
+HolderPanel = NodePath("Holder")
+NormalPanel = NodePath("Holder/Normal")
+SelectedPanel = NodePath("Holder/Selected")
+MainButton = NodePath("Holder/Button")
 
 [node name="Holder" type="Panel" parent="."]
 layout_mode = 1
